@@ -1,0 +1,30 @@
+{% extends 'base.html'%}
+
+{% block content %}
+
+
+<div class="container">
+  <h2 class="text-start">Movie Listing @ GV Cinema</h2>
+    <form id="search-form"  method="post">
+        {% csrf_token %}
+        <input id="search-input" type="search" class="px-2" placeholder="Search movies..." />
+        <div id="resultbox" class="search-suggestion-box Hide"></div>
+    </form>
+<hr>
+<h3>Popular Movies this month</h3>
+  <div class="row">
+    {% for movie in movies %}
+    <div class="col-3 my-3">
+        <div class="text-center card-img">
+            {% if movie.image %}
+            <a href="{% url 'singlemovie' movie.id %}"><img src="{{movie.image.url}}" class="img-thumbnail"></a>
+            {% endif%}
+        </div>
+      <h4>{{movie.name}}</h4>
+        <span>{{movie.duration}} min</span><br>
+        <span>User Rating: {{movie.userRating}}</span>
+    </div>
+       {% endfor %}
+  </div>
+</div>
+{% endblock %}

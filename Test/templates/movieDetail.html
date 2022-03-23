@@ -1,0 +1,44 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<div class="container">
+  <h2 class="text-start">Movie Listing @ GV Cinema</h2>
+    <button type="button" class="btn border">Back</button>
+    {% for movie in movies %}
+
+<h3>{{movie.name}}</h3>
+    <p>(PG: Some violence)</p>
+    <hr>
+  <div class="row">
+
+    <div class="col-3 ">
+        <div class="text-center">
+            {% if movie.image %}
+            <a href="{% url 'singlemovie' movie.id %}"><img src="{{movie.image.url}}" class="img-thumbnail"></a>
+            {% endif%}
+        </div>
+    </div>
+      <div class="col-7">
+          <h5>Detail</h5>
+          <p>
+              Genre:
+              {% for genre in movie.genre %}
+                {{genre}},
+              {% endfor %}
+          </p>
+           <p>
+              Language: {{movie.language}}
+          </p>
+          <p>
+              Duration: {{movie.duration}} minutes
+          </p>
+          <p>
+              User Rating: {{movie.userRating}}
+          </p>
+          <h5>Synopsis</h5>
+          <p>{{movie.description}}</p>
+      </div>
+       {% endfor %}
+  </div>
+</div>
+{% endblock %}
